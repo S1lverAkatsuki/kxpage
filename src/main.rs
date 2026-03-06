@@ -109,6 +109,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
             &(PUBLIC_PREFIX.clone() + "/images"),
             get(get_image).post(upload_image).delete(remove_image),
         )
+        // .layer(axum::extract::DefaultBodyLimit::max(10 * 1024 * 1024)) // 10MB
         .with_state(state);
 
     let listener = tokio::net::TcpListener::bind(*ADDR).await.unwrap();
